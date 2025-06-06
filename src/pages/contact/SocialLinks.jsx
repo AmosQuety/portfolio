@@ -12,7 +12,7 @@ const socialLinks = [
   {
     icon: <FaLinkedin className="text-blue-400" size={20} />,
     name: "LinkedIn",
-    url: "https://linkedin.com/in/nabasa-amos-355947251",
+    url: "https://linkedin.com/in/nabasa-amos",
     color: "hover:bg-blue-400/10",
   },
   {
