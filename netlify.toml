@@ -1,8 +1,8 @@
 # netlify.toml
 
+
 [[plugins]]
-# This is the official Netlify sitemap plugin
-package = "netlify-plugin-sitemap"
+package = "@netlify/plugin-sitemap"
 
   [plugins.inputs]
   # The base URL of your site (required)
