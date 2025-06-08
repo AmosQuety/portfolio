@@ -1,0 +1,17 @@
+# netlify.toml
+
+[[plugins]]
+# This is the official Netlify sitemap plugin
+package = "netlify-plugin-sitemap"
+
+  [plugins.inputs]
+  # The base URL of your site (required)
+  # Replace this with your domain.
+  baseURL = "https://nabasa-amos.netlify.app/"
+
+  # Optional: If your links have a trailing slash (e.g., /about/), set this to true.
+  # trailingSlash = true
+
+  # Optional: If you use "pretty" URLs (e.g., /about instead of /about.html),
+  # the plugin is usually smart enough, but you can force it.
+  # prettyURLs = true
