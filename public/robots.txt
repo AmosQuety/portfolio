@@ -1,0 +1,12 @@
+# Default rules for all crawlers
+User-agent: *
+Allow: /
+Disallow: /404.html
+Disallow: /secret-preview/  # Block staging/preview paths
+
+# Special rules for specific bots (optional)
+User-agent: AhrefsBot
+Crawl-delay: 10  # Slows down aggressive SEO bots
+
+# Sitemap URL (must match your actual domain)
+Sitemap: https://nabasa-amos.netlify.app/sitemap.xml
