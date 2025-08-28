@@ -92,7 +92,7 @@ const navItems = sections.map((section) => ({
 // Constants for the Home page layout and content
 const SITE_TITLE = "Nabasa Amos";
 // This padding-top for the main content area should correspond to your header's height
-const RESUME_FILE_NAME = "My CV.pdf";
+const RESUME_FILE_NAME = "Nabasa_Amos_CV.pdf";
 
 // If header is h-16 (4rem / 64px)
 const SCROLL_MARGIN_TOP_CLASS = "scroll-mt-16";
