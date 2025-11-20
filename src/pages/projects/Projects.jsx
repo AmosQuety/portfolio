@@ -10,10 +10,10 @@ function Projects() {
   const projects = [
     {
       title: "RentalTrack",
-      icon: FaMobileAlt, // New icon for mobile app
+      icon: FaMobileAlt,
       description: "Offline-first React Native property management app for landlords to track tenants, rent payments, and automate reminders. Features SQLite database, local notifications, and comprehensive analytics.",
       technologies: ["React Native", "TypeScript", "SQLite", "Expo", "Node.js"],
-      githubLink: null, // You can add your GitHub repo link if available
+      githubLink: "https://github.com/AmosQuety/RentalTrack", 
       liveLink: "https://drive.google.com/file/d/110kPGSJT9Gp4vVRQyHor5Qlf8PKCAlZK/view?usp=sharing", // Your APK download link
     },
     {
