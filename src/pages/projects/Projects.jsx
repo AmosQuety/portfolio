@@ -1,6 +1,6 @@
 // sections/Projects.js
 
-import { FaLeaf, FaLanguage, FaMobileAlt } from "react-icons/fa"; // Added FaMobileAlt
+import { FaLeaf, FaLanguage, FaMobileAlt, FaWhatsapp } from "react-icons/fa"; // Added FaMobileAlt
 import { SiPypi } from "react-icons/si";
 import { BsBuilding } from "react-icons/bs";
 import { motion } from "framer-motion";
@@ -8,6 +8,14 @@ import ProjectCard from "./ProjectCard";
 
 function Projects() {
   const projects = [
+    {
+      title: "RefugeLink",
+      icon: FaWhatsapp,
+      description: "AI-powered WhatsApp chatbot providing 24/7 refugee assistance in Mbarara, Uganda. Delivers instant access to registration info, food assistance, shelter, healthcare facilities, and emergency contacts via conversational interface.",
+      technologies: ["TypeScript", "Node.js", "Express", "Twilio API", "Supabase", "PostgreSQL", "Render"],
+      githubLink: "https://github.com/AmosQuety/RefugeLink", 
+      liveLink: "https://wa.me/14155238886?text=join%20mail-iron", // WhatsApp link to start chat
+    },
     {
       title: "RentalTrack",
       icon: FaMobileAlt,
