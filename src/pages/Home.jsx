@@ -8,7 +8,6 @@ import Coder from "./Coder";
 import Header from "../components/Header"; 
 import GeminiConcierge from "../components/GeminiConcierge";
 import ConnectivitySlider from "../components/ConnectivitySlider";
-import LensSwitcher from "../components/LensSwitcher";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { ContactSection } from "./Sections/ContactSection";
@@ -59,7 +58,6 @@ function Home() {
 
   return (
     <div className="bg-darkBlue text-white  min-h-screen">
-      <LensSwitcher />
       <Header navItems={navItems} siteTitle={SITE_TITLE} />
       
       {/* Visual Empathy Overlay for Resilient Lens */}
