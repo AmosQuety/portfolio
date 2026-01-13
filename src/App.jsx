@@ -3,17 +3,20 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/pageNotFound/PageNotFound";
+import { PortfolioProvider } from "./context/PortfolioContext";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <ToastContainer position="top-center" />
-      <Routes>
-        <Route path="/" element={<Home />} />
+    <PortfolioProvider>
+      <BrowserRouter>
+        <ToastContainer position="top-center" />
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </PortfolioProvider>
   );
 };
 

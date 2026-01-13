@@ -1,5 +1,8 @@
-/* eslint-disable react/no-unescaped-entities */
+import { usePortfolio } from "../context/PortfolioContext";
+
 const ExperienceSection = () => {
+  const { activeLens } = usePortfolio();
+  const isEngineerMode = activeLens === 'engineer';
   const experiences = [
     {
       role: "Software Developer Intern",
@@ -47,8 +50,8 @@ const ExperienceSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-light-green-500 mb-4 tracking-tight">
-            Professional Experience
+          <h2 className="text-4xl sm:text-5xl font-bold text-cyan-400 mb-4 tracking-tight uppercase tracking-[0.1em]">
+            Experience
           </h2>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto">
             My journey through impactful roles and contributions
@@ -60,30 +63,36 @@ const ExperienceSection = () => {
           {experiences.map((exp, index) => (
             <div
               key={index}
-              className="group relative bg-gray-800/50 hover:bg-gray-800/70 border border-gray-700 rounded-xl p-6 md:p-8 overflow-hidden transition-all duration-300 hover:border-light-green-500/30"
+              className="group relative bg-slate-800/40 backdrop-blur-md hover:bg-slate-800/60 border border-slate-700/50 rounded-2xl p-6 md:p-8 overflow-hidden transition-all duration-300 hover:border-cyan-400/30"
             >
               {/* Decorative element */}
-              <div className="absolute -right-10 -top-10 w-32 h-32 bg-light-green-500/10 rounded-full group-hover:bg-light-green-500/20 transition-all duration-500"></div>
+              <div className="absolute -right-10 -top-10 w-32 h-32 bg-cyan-500/10 rounded-full group-hover:bg-cyan-500/20 transition-all duration-500"></div>
 
               <div className="relative z-10">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
                   <h3 className="text-xl md:text-2xl font-bold text-white">
                     {exp.role}
                   </h3>
-                  <span className="inline-block px-3 py-1 bg-light-green-500/20 text-light-green-400 rounded-full text-sm font-medium">
+                  <span className="inline-block px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-[10px] font-bold uppercase tracking-widest border border-cyan-500/20">
                     {exp.period}
                   </span>
                 </div>
 
-                <p className="text-lg text-light-green-400 font-medium mb-4">
+                <p className="text-lg text-cyan-400 font-bold mb-4">
                   {exp.company}
                 </p>
 
                 <ul className="space-y-3">
-                  {exp.highlights.map((highlight, i) => (
+                  {exp.highlights
+                    .filter(h => {
+                      if (isEngineerMode) return true; // Show all for engineers
+                      // For recruiters/resilient, hide overly technical bits if they are separate
+                      return true; // For now, keep all, but we could categorize them
+                    })
+                    .map((highlight, i) => (
                     <li key={i} className="flex items-start">
                       <svg
-                        className="w-5 h-5 text-light-green-500 mr-2 mt-0.5 flex-shrink-0"
+                        className="w-5 h-5 text-cyan-400 mr-2 mt-0.5 flex-shrink-0"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -95,7 +104,9 @@ const ExperienceSection = () => {
                           d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      <span className="text-gray-300">{highlight}</span>
+                      <span className="text-gray-300">
+                        {isEngineerMode ? highlight : highlight.replace(/\(.*\)/, '')}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -129,7 +140,7 @@ const ExperienceSection = () => {
             ].map((tech, i) => (
               <span
                 key={i}
-                className="px-4 py-2 bg-gray-800 text-gray-300 rounded-full text-sm font-medium hover:bg-light-green-500/20 hover:text-light-green-400 transition-colors"
+                className="px-4 py-2 bg-slate-800/80 text-slate-300 rounded-full text-xs font-bold uppercase tracking-widest border border-slate-700/50 hover:bg-cyan-500/20 hover:text-cyan-400 hover:border-cyan-500/30 transition-all"
               >
                 {tech}
               </span>

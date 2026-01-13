@@ -1,6 +1,6 @@
 // sections/Projects.js
 
-import { FaLeaf, FaLanguage, FaMobileAlt, FaWhatsapp } from "react-icons/fa"; // Added FaMobileAlt
+import { FaLeaf, FaLanguage, FaMobileAlt, FaWhatsapp, FaBrain } from "react-icons/fa"; // Added FaBrain
 import { SiPypi } from "react-icons/si";
 import { BsBuilding } from "react-icons/bs";
 import { motion } from "framer-motion";
@@ -9,12 +9,20 @@ import ProjectCard from "./ProjectCard";
 function Projects() {
   const projects = [
     {
+      title: "Prism AI",
+      icon: FaBrain,
+      description: "Production-grade biometric SaaS combining Computer Vision & GenAI. Features Face ID login, liveness detection, and RAG document analysis using a microservices architecture (Node.js + Python).",
+      technologies: ["React", "GraphQL", "Python", "FastAPI", "Gemini API", "DeepFace", "Supabase"],
+      githubLink: "https://github.com/AmosQuety/Super-AI-App",
+      liveLink: "http://prism-vision.vercel.app", 
+    },
+    {
       title: "RefugeLink",
       icon: FaWhatsapp,
-      description: "AI-powered WhatsApp chatbot providing 24/7 refugee assistance in Mbarara, Uganda. Delivers instant access to registration info, food assistance, shelter, healthcare facilities, and emergency contacts via conversational interface.",
+      description: "AI-powered WhatsApp chatbot providing 24/7 refugee assistance in Mbarara, Uganda. Delivers instant access to registration info, food assistance, shelter, and emergency contacts via conversational interface.",
       technologies: ["TypeScript", "Node.js", "Express", "Twilio API", "Supabase", "PostgreSQL", "Render"],
       githubLink: "https://github.com/AmosQuety/RefugeLink", 
-      liveLink: "https://wa.me/14155238886?text=join%20mail-iron", // WhatsApp link to start chat
+      liveLink: "https://wa.me/14155238886?text=join%20mail-iron", 
     },
     {
       title: "RentalTrack",
@@ -22,16 +30,9 @@ function Projects() {
       description: "Offline-first React Native property management app for landlords to track tenants, rent payments, and automate reminders. Features SQLite database, local notifications, and comprehensive analytics.",
       technologies: ["React Native", "TypeScript", "SQLite", "Expo", "Node.js"],
       githubLink: "https://github.com/AmosQuety/RentalTrack", 
-      liveLink: "https://drive.google.com/file/d/110kPGSJT9Gp4vVRQyHor5Qlf8PKCAlZK/view?usp=sharing", // Your APK download link
+      liveLink: "https://drive.google.com/file/d/110kPGSJT9Gp4vVRQyHor5Qlf8PKCAlZK/view?usp=sharing", 
     },
-    {
-      title: "Crop Advisor",
-      icon: FaLeaf,
-      description: "AI-driven web app for crop/fertilizer recommendations with 60% higher accuracy. Optimized UI for low-bandwidth rural users.",
-      technologies: ["Python", "Flask", "React", "Machine Learning"],
-      githubLink: null,
-      liveLink: null,
-    },
+    
     {
       title: "LugaLingo",
       icon: FaLanguage,
@@ -39,6 +40,7 @@ function Projects() {
       technologies: ["React", "Node.js", "Firebase"],
       githubLink: null,
       liveLink: null,
+      // not fully finished yet
     },
     {
       title: "HostelEase",
@@ -74,9 +76,9 @@ function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-3xl sm:text-4xl font-bold mb-12 text-center text-slate-100"
+          className="text-3xl sm:text-4xl font-bold mb-12 text-center text-cyan-400 uppercase tracking-[0.2em]"
         >
-          My <span className="text-cyan-400">Projects</span>
+          My Projects
         </motion.h2>
 
         {/* APK Installation Instructions */}

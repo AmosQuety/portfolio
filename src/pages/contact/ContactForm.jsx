@@ -28,22 +28,22 @@ export const ContactForm = () => {
   };
 
   return (
-    <div className="bg-slate-800 p-8 rounded-xl border border-slate-700/50 shadow-lg">
-      <h3 className="text-xl font-semibold mb-6 text-slate-100 flex items-center gap-2">
+    <div className="bg-slate-800/40 backdrop-blur-md p-8 rounded-2xl border border-slate-700/50 shadow-2xl">
+      <h3 className="text-xl font-bold mb-6 text-white flex items-center gap-2 uppercase tracking-widest">
         <FaEnvelope className="text-cyan-400" />
-        Send me a message
+        Message
       </h3>
 
       <form
         ref={formRef}
         onSubmit={handleSubmit}
-        className="space-y-4"
+        className="space-y-5"
         id="contact-form"
       >
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-slate-400 mb-1"
+            className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
           >
             Name
           </label>
@@ -52,15 +52,15 @@ export const ContactForm = () => {
             name="from_name"
             id="name"
             required
-            className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-transparent"
-            placeholder="Your name"
+            className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all"
+            placeholder="Identity Required"
           />
         </div>
 
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-slate-400 mb-1"
+            className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
           >
             Email
           </label>
@@ -69,33 +69,33 @@ export const ContactForm = () => {
             name="from_email"
             id="email"
             required
-            className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-transparent"
-            placeholder="your@email.com"
+            className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all"
+            placeholder="communication@channel.com"
           />
         </div>
 
         <div>
           <label
             htmlFor="message"
-            className="block text-sm font-medium text-slate-400 mb-1"
+            className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
           >
-            Message
+            Transmission
           </label>
           <textarea
             id="message"
             name="message"
             rows={4}
             required
-            className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-transparent"
-            placeholder="Your message here..."
+            className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all"
+            placeholder="Write your signal here..."
           ></textarea>
         </div>
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium py-2 px-6 rounded-lg hover:opacity-90 transition-opacity duration-200 flex items-center justify-center gap-2"
+          className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-cyan-600/20 flex items-center justify-center gap-2 uppercase tracking-widest scale-100 hover:scale-[1.02]"
         >
-          Send Message
+          Initiate Send
         </button>
       </form>
     </div>

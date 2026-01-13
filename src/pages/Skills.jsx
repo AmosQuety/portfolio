@@ -1,56 +1,54 @@
 import { useEffect } from "react"; // Don't forget useEffect
 import { motion, useAnimation, useReducedMotion } from "framer-motion";
+import { usePortfolio } from "../context/PortfolioContext";
 
 const Skills = () => {
+  const { activeLens } = usePortfolio();
   const skills = [
-    { name: "NodeJS", logo: "nodejs.png" },
-    { name: "Mobile App Dev't", logo: "app.png" },
-    { name: "Javascript", logo: "js.png" },
-    { name: "PHP", logo: "php.png" },
-    { name: "AI", logo: "robot.png" },
-    { name: "React", logo: "react.png" },
-    { name: "MongoDB", logo: "mongodb.png" },
+    { name: "NodeJS", logo: "nodejs.png", useCase: "Event-driven Microservices & Rapid Backend Scaling" },
+    { name: "Mobile App Dev't", logo: "app.png", useCase: "Offline-First Architectures with React Native" },
+    { name: "Javascript", logo: "js.png", useCase: "Modern ES6+ Logic & Async Pattern Mastery" },
+    { name: "PHP", logo: "php.png", useCase: "Legacy System Integration & Stability" },
+    { name: "AI", logo: "robot.png", useCase: "Generative Agentic Flows with Gemini & RAG" },
+    { name: "React", logo: "react.png", useCase: "High-Performance Component Composition (React 19)" },
+    { name: "MongoDB", logo: "mongodb.png", useCase: "Flexible NoSQL Schema Design & Vector Search" },
   ];
 
-  // Duplicate skills for a smoother continuous animation, especially with "reverse"
-  // This ensures there's enough content to scroll back and forth without empty gaps.
   const duplicatedSkills = [...skills, ...skills];
 
-  const controls = useAnimation(); // Hook to control animations
+  const controls = useAnimation(); 
   const prefersReducedMotion = useReducedMotion();
+  const isResilientMode = activeLens === 'resilient';
 
   const containerVariants = {
     animate: {
-      x: ["100%", "-100%"], // Moves the content from off-screen right to off-screen left
+      x: ["100%", "-100%"], 
       transition: {
         x: {
           repeat: Infinity,
-          repeatType: "reverse", // Patrols back and forth
-          duration: 30, // Adjusted duration, feel free to tweak for speed
+          repeatType: "reverse", 
+          duration: 30, 
           ease: "linear",
         },
       },
     },
   };
 
-  // Variant for users who prefer reduced motion (animation will be static)
   const reducedMotionContainerVariants = {
     animate: {
-      x: 0, // Static position
+      x: 0, 
       transition: { duration: 0 },
     },
   };
 
-  // Start animation on mount, respecting reduced motion preference
   useEffect(() => {
-    if (!prefersReducedMotion) {
-      controls.start("animate"); // Start the "animate" variant
+    if (!prefersReducedMotion && !isResilientMode) {
+      controls.start("animate"); 
     } else {
-      controls.start(reducedMotionContainerVariants.animate); // Go directly to the static state
+      controls.start(reducedMotionContainerVariants.animate); 
     }
-    // Optional: Stop animation on component unmount
     return () => controls.stop();
-  }, [controls, prefersReducedMotion, reducedMotionContainerVariants.animate]);
+  }, [controls, prefersReducedMotion, isResilientMode]);
 
   // Handler to pause animation on mouse enter
   const handleMouseEnter = () => {
@@ -111,16 +109,13 @@ const Skills = () => {
               {duplicatedSkills.map((skill, index) => (
                 <div
                   key={`${skill.name}-${index}`} // More unique key for duplicated items
-                  className="flex-shrink-0 
-                             w-[120px] h-[150px]       /* Base size (extra small screens) */
-                             sm:w-[140px] sm:h-[170px] /* Small screens and up */
-                             md:w-[150px] md:h-[180px] /* Medium screens and up */
-                             lg:w-[160px] lg:h-[190px] /* Large screens and up */
+                  className={`flex-shrink-0 
+                             ${activeLens === 'engineer' ? 'w-[180px] h-[220px]' : 'w-[120px] h-[150px] sm:w-[140px] sm:h-[170px] md:w-[150px] md:h-[180px] lg:w-[160px] lg:h-[190px]'} 
                              rounded-xl p-3 sm:p-4 border border-purple-700 
                              shadow-lg bg-gradient-to-br from-[#1f1f2e] to-[#2e2e44] 
                              flex flex-col items-center justify-center
                              transition-all duration-300 ease-in-out
-                             hover:shadow-2xl hover:shadow-purple-500/60 hover:-translate-y-1 sm:hover:-translate-y-2 hover:border-purple-500"
+                             hover:shadow-2xl hover:shadow-purple-500/60 hover:-translate-y-1 sm:hover:-translate-y-2 hover:border-purple-500`}
                   // Responsive card sizes and hover effect
                 >
                   <img
@@ -141,6 +136,11 @@ const Skills = () => {
                   >
                     {skill.name}
                   </p>
+                  {activeLens === 'engineer' && (
+                    <p className="text-[10px] text-purple-300 text-center mt-2 leading-tight opacity-90 italic">
+                      {skill.useCase}
+                    </p>
+                  )}
                 </div>
               ))}
             </motion.div>

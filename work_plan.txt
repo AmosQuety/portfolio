@@ -1,0 +1,65 @@
+
+
+Context: I am finalizing my 2026 Portfolio for the Google AI Challenge. We need to polish the 'Multi-Lens' architecture to a 'World-Class' standard. Please implement the following 6 refinements to bridge the gap between our features.
+
+Task 1: Lens-Aware AI (@GeminiConcierge.jsx)
+
+Pull activeLens from usePortfolio.
+
+Update getSystemInstruction to inject current lens context:
+
+If 'recruiter': Tone is high-impact/ROI.
+
+If 'engineer': Tone is technical/architectural (mention WASM, Microservices).
+
+If 'resilient': Tone is accessible/concise.
+
+
+
+Task 2: Dynamic Architecture (@ProjectCard.jsx & @ArchitectureXRay.jsx)
+
+In ProjectCard, pass dynamic props to ArchitectureXRay based on the project title.
+
+For 'Prism AI': set backend to 'FastAPI/Node', data to 'Supabase/Vector', and scores to {speed: 92, security: 98, cost: 85}.
+
+For 'RefugeLink': set backend to 'Node/Express', data to 'PostgreSQL/Gemini', and scores to {speed: 85, security: 80, cost: 95}.
+
+
+
+Task 3: Visual Empathy Overlay (@Home.jsx)
+
+When activeLens === 'resilient', add a fixed-position div with a subtle scanline/LCD grid effect (low opacity) to simulate a budget mobile device display.
+
+Ensure this overlay has pointer-events-none so it doesn't block clicks.
+
+
+
+
+Task 4: UX Scroll Lock (@PrismIdentityLab.jsx)
+
+Use a useEffect hook to set document.body.style.overflow = 'hidden' when the modal is mounted and 'unset' when unmounted.
+
+
+
+Task 5: Mobile Layout Fix (@LensSwitcher.jsx)
+
+Update the CSS/Tailwind classes. On mobile (sm screens and down), move the switcher from the bottom to the top (just below the header). Keep it centered at the bottom only for md screens and up.
+
+
+
+Task 6: Skill Evolution (@Skills.jsx)
+
+Find the Skills component.
+
+If activeLens === 'engineer', change the display from simple icons to a 'Technical Detail' view: show the tech name plus a small 'Primary Use Case' text for each (e.g., 'Node.js - Event-driven Microservices').
+
+Goal: Create a cohesive, high-performance experience that demonstrates engineering maturity. Show me the implementation plan before executing."
+
+Pro-Tips for this specific run:
+
+Skills.jsx: Since I haven't seen your Skills.jsx code yet, the agent will find it in your file tree. If it asks for clarification on what "Primary Use Case" text to use, tell it to "Infer the use case from the tech name or my @career_context.md file."
+
+The "Resilient" Tint: If the grayscale filter in Home.jsx makes the "Lens Switcher" hard to see, ask the agent to "Ensure the LensSwitcher is excluded from the grayscale filter or has a higher contrast."
+
+JSON Errors: If PrismIdentityLab throws an error during the Gemini call, remind the agent: "Ensure we are using the cleanJson logic to strip Markdown backticks from the AI response."
+

@@ -1,115 +1,86 @@
-/* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
+import { usePortfolio } from "../context/PortfolioContext";
 
 const About = () => {
+  const { activeLens } = usePortfolio();
   const profileImageUrl = "/image2.jpg";
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const isResilientMode = activeLens === 'resilient';
+  const isEngineerMode = activeLens === 'engineer';
 
   return (
     <div className="text-white py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center text-light-green-500 mb-10 md:mb-14">
-          WHO I AM?
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-cyan-400 mb-10 md:mb-14 uppercase tracking-[0.2em]">
+          Who I Am
         </h2>
 
         <div className="flex flex-col md:flex-row gap-10 md:gap-12 lg:gap-16 items-center">
+          {/* Profile Image */}
           <div className="w-full md:w-2/5 lg:w-1/3 flex-shrink-0">
-            <div className="w-full max-w-sm mx-auto md:max-w-none aspect-[3/4] sm:aspect-square md:aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
+            <div className="w-full max-w-sm mx-auto md:max-w-none aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50">
               <img
                 src={profileImageUrl}
-                alt="Nabasa Amos - A passionate software developer"
-                className="w-full h-full object-cover object-center"
+                alt="Nabasa Amos"
+                className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"
               />
             </div>
           </div>
 
+          {/* Text Content */}
           <div className="w-full md:w-3/5 lg:w-2/3">
-            <div className="space-y-5 md:space-y-6 text-base sm:text-lg text-gray-200 leading-relaxed font-sans">
-              <p>
-                My name is Nabasa Amos, and I build software that turns
-                vulnerability and confusion for underserved communities into
-                clarity and agency.{" "}
-                <span className="font-medium text-light-green-400">
-                  This isn't just a technical pursuit; it's deeply personal.
-                </span>{" "}
-                I've seen firsthand how the right tools can transform lives –
-                whether it's addressing my parents' 'bad harvests,' which I
-                realized weren't fate but a data gap that tech could solve, or
-                empowering a refugee to find life-saving information with a
-                simple voice command.
+            <div className={`space-y-6 text-base sm:text-lg text-gray-200 leading-relaxed p-6 sm:p-8 rounded-3xl transition-all duration-500 ${
+              isResilientMode ? 'bg-slate-950 border-white/5' : 'bg-slate-800/30 backdrop-blur-md border border-slate-700/50 shadow-2xl'
+            }`}>
+              
+              <p className="text-xl sm:text-2xl font-light">
+                Hi, I'm <span className="text-cyan-400 font-bold">Amos</span>. I build software that helps people get things done, especially when the situation is difficult.
               </p>
 
-              {isExpanded ? (
-                <>
-                  <p>
-                    <span className="font-medium text-light-green-400">
-                      My passion is to fix frustrations that are often design
-                      flaws, not user shortcomings.
-                    </span>{" "}
-                    For example, in my Final Year Project, a Crop and Fertilizer
-                    Recommendation System, the challenge wasn't just about
-                    algorithms; it was ensuring inconsistent IoT sensor data
-                    didn't leave farmers in the dark. I tackled this by
-                    implementing robust caching and error handling, delivering a
-                    system where users could trust the near-real-time soil
-                    insights, even with spotty internet. This drive for
-                    user-centric solutions also fueled my design for a WhatsApp
-                    bot for refugees (RSRS), where enabling simple text and
-                    voice commands, even photo recognition for damaged
-                    documents, meant bypassing literacy or language barriers.{" "}
-                    <span className="italic">
-                      One user told us, 'Before, I waited weeks for help. Now I
-                      get answers while hiding from my abusive husband.' That's
-                      the kind of agency I strive to create.
-                    </span>
-                  </p>
-                  <p>
-                    This resourceful problem-solving extends beyond code. When
-                    running my popcorn business, I faced overwhelming customer
-                    surges. My solution?{" "}
-                    <span className="font-medium text-light-green-400">
-                      A simple WhatsApp reservation system.
-                    </span>{" "}
-                    This 'low-tech' fix cut lost sales by 40%, allowed me to
-                    serve 25-30% more customers, and even earned comments like,
-                    'This feels like VIP service!' It taught me that listening
-                    to users and finding frugal, empathetic solutions create
-                    immense value –{" "}
-                    <span className="font-medium text-light-green-400">
-                      a mindset crucial for humanitarian tech.
-                    </span>
-                  </p>
-                  <p>
-                    Looking ahead, I'm pursuing a graduate trainee role at an
-                    established company primarily to master building scalable,
-                    reliable systems—especially ones optimized for low-bandwidth
-                    environments—and to build a strong foundation in
-                    industrial-grade engineering excellence and meaningful
-                    networks.{" "}
-                    <span className="font-medium text-light-green-400">
-                      Both are essential for my long-term vision: launching
-                      ventures that create over 1,000 jobs and deliver impactful
-                      digital solutions for underprivileged communities,
-                    </span>{" "}
-                    particularly in agritech and social impact. I'm eager to
-                    bring this blend of user-centric design, technical
-                    problem-solving, and entrepreneurial drive to a team that's
-                    building truly transformative technology.
-                  </p>
-                </>
-              ) : (
-                <p className="font-medium text-light-green-400">
-                  My passion is to fix frustrations that are often design flaws,
-                  not user shortcomings...
+              <p>
+                {isEngineerMode 
+                  ? "My focus is on making sure apps don't break when the internet is slow or the hardware is old. I like the challenge of building for the real world, not just for high-end offices." 
+                  : "I don't just care about the code; I care about the people using it. I've seen how a simple tool—like a WhatsApp bot or a basic soil sensor—can change a person's day or even their life."}
+              </p>
+
+              {activeLens === 'recruiter' && (
+                <p className="text-slate-400 italic">
+                  "I grew up watching my parents deal with 'bad harvests' and seeing neighbors struggle to find basic info. That’s why I build things that work where it matters most."
                 </p>
               )}
 
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="mt-4 px-4 py-2 sm:px-5 sm:py-2 md:px-6 md:py-2 bg-light-green-500 hover:bg-light-green-600 text-white font-medium rounded-lg transition-colors duration-200"
-              >
-                {isExpanded ? "Read less" : "Read more"}
-              </button>
+              {isExpanded ? (
+                <div className="space-y-6 pt-4 animate-fadeIn">
+                  <p>
+                    Take my final year project: a Recommendation System for farmers. The hardest part wasn't the AI—it was the fact that sensors in the field lose connection all the time. I built it to handle that mess, so farmers could still get advice even when the internet flickered. 
+                  </p>
+                  
+                  <div className="p-4 bg-cyan-500/5 border-l-4 border-cyan-500 rounded-r-xl">
+                    <p className="text-sm">
+                      <span className="font-bold text-cyan-400">The Popcorn Lesson:</span> Before I was a developer, I ran a popcorn business. When it got too busy, I didn't buy fancy software. I just built a simple WhatsApp reservation system. It cut my lost sales by 40% and made my customers feel like VIPs. It taught me that <span className="text-white">simple, smart solutions create the most value.</span>
+                    </p>
+                  </div>
+
+                  <p>
+                    Now, I’m looking to join a team where I can master high-level engineering while keeping this "people-first" mindset. My long-term goal is to build tech that creates thousands of jobs and helps communities that the rest of the world often overlooks.
+                  </p>
+                </div>
+              ) : (
+                <p className="text-cyan-500/60 text-sm font-medium">
+                  My goal is to find smart, simple ways to solve big problems...
+                </p>
+              )}
+
+              {!isResilientMode && (
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="mt-6 px-8 py-3 bg-slate-700/50 hover:bg-cyan-500 text-white text-sm font-bold rounded-full transition-all duration-300 border border-slate-600 hover:border-cyan-400 flex items-center gap-2 group"
+                >
+                  {isExpanded ? "Show Less" : "Read My Story"}
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
