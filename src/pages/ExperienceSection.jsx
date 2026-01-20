@@ -3,14 +3,24 @@ import { usePortfolio } from "../context/PortfolioContext";
 const ExperienceSection = () => {
   const { activeLens } = usePortfolio();
   const isEngineerMode = activeLens === 'engineer';
+  
   const experiences = [
     {
-      role: "Software Developer Intern",
-      company: "CAMTech Uganda",
-      period: "Sept 2023 - Oct 2023",
+      role: "Independent Software Engineer",
+      company: "Freelance & Open Source", // Professional way to say "Gigs & Personal Projects"
+      period: "Sept 2025 - Present",
       highlights: [
-        "Built health-focused voicebot (Python, ESP32, ChatGPT API) enabling 100+ users to access health info via touchless voice queries",
-        "Led cross-functional team as Project Manager, delivering the MVP on time",
+        "Architecting production-grade SaaS platforms like Prism AI, integrating Biometric Security and RAG pipelines.",
+        "Delivering freelance web solutions for local clients with a focus on offline-first architectures and 'Constraint-First' engineering.",
+      ],
+    },
+    {
+      role: "Site Verification & Reporting Engineer",
+      company: "Hammer Uganda",
+      period: "July 2025 - Sept 2025",
+      highlights: [
+        "Analyzed drive test log files from field measurements to generate precise SSV (Single Site Verification) reports.",
+        "Evaluated and optimized network KPI performances across multiple generations (2G/3G/4G/5G).",
       ],
     },
     {
@@ -20,6 +30,15 @@ const ExperienceSection = () => {
       highlights: [
         "Developed HostelEase (React, Node.js, MongoDB) booking system used by 500+ students",
         "Reduced manual registration efforts by 50% with secure auth and real-time availability filters",
+      ],
+    },
+    {
+      role: "Software Developer Intern",
+      company: "CAMTech Uganda",
+      period: "Sept 2023 - Oct 2023",
+      highlights: [
+        "Built health-focused voicebot (Python, ESP32, ChatGPT API) enabling 100+ users to access health info via touchless voice queries",
+        "Led cross-functional team as Project Manager, delivering the MVP on time",
       ],
     },
     {
@@ -50,7 +69,7 @@ const ExperienceSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-cyan-400 mb-4 tracking-tight uppercase tracking-[0.1em]">
+          <h2 className="text-4xl sm:text-5xl font-bold text-cyan-400 mb-4 uppercase tracking-widest font-['Geist']">
             Experience
           </h2>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto">
@@ -85,9 +104,8 @@ const ExperienceSection = () => {
                 <ul className="space-y-3">
                   {exp.highlights
                     .filter(h => {
-                      if (isEngineerMode) return true; // Show all for engineers
-                      // For recruiters/resilient, hide overly technical bits if they are separate
-                      return true; // For now, keep all, but we could categorize them
+                      if (isEngineerMode) return true; 
+                      return true; 
                     })
                     .map((highlight, i) => (
                     <li key={i} className="flex items-start">
@@ -115,7 +133,7 @@ const ExperienceSection = () => {
           ))}
         </div>
 
-        {/* Optional: Skills tag cloud at bottom */}
+        {/* Skills tag cloud at bottom */}
         <div className="mt-16 text-center">
           <h3 className="text-xl font-semibold text-gray-300 mb-6">
             Technologies I've Worked With

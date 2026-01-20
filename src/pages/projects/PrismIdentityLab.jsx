@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom'; // Added for Portal support
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaUserShield, FaTimes, FaCamera, FaUpload, FaMicrochip, FaLanguage, FaLock } from 'react-icons/fa';
+import { FaUserShield, FaTimes, FaCamera, FaUpload, FaMicrochip, FaLanguage, FaLock, FaBullseye, FaCodeBranch } from 'react-icons/fa';
+import { usePortfolio } from '../../context/PortfolioContext';
 
 const PrismIdentityLab = ({ onClose }) => {
+  const { activeLens } = usePortfolio();
+  const isEngineerMode = activeLens === 'engineer';
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [analysis, setAnalysis] = useState(null); 
@@ -86,7 +89,7 @@ const PrismIdentityLab = ({ onClose }) => {
       animate={{ opacity: 1 }} 
       exit={{ opacity: 0 }}
       // Use fixed inset-0 and a massive Z-index to override everything
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/98 backdrop-blur-3xl overflow-y-auto"
+      className="fixed inset-0 z-[9999] flex text-white items-center justify-center p-4 bg-slate-950/98 backdrop-blur-3xl overflow-y-auto"
     >
       <motion.div 
         initial={{ scale: 0.95, y: 20 }} 
@@ -138,6 +141,43 @@ const PrismIdentityLab = ({ onClose }) => {
                     className="absolute left-0 right-0 h-1 bg-cyan-500 shadow-[0_0_15px_#06b6d4] z-10"
                   />
                 )}
+                
+                {/* Engineer HUD Overlay */}
+                {isEngineerMode && analysis && (
+                  <div className="absolute inset-0 pointer-events-none">
+                    <svg className="w-full h-full" viewBox="0 0 100 100">
+                      {/* Detection Box */}
+                      <motion.rect 
+                        initial={{ opacity: 0, pathLength: 0 }}
+                        animate={{ opacity: 1, pathLength: 1 }}
+                        x="25" y="20" width="50" height="50"
+                        fill="none" stroke="#22d3ee" strokeWidth="0.5"
+                        strokeDasharray="2 2"
+                      />
+                      {/* Corners */}
+                      <path d="M25 30 V20 H35" fill="none" stroke="#22d3ee" strokeWidth="1" />
+                      <path d="M65 20 H75 V30" fill="none" stroke="#22d3ee" strokeWidth="1" />
+                      <path d="M25 60 V70 H35" fill="none" stroke="#22d3ee" strokeWidth="1" />
+                      <path d="M65 70 H75 V60" fill="none" stroke="#22d3ee" strokeWidth="1" />
+                      
+                      {/* Landpoints */}
+                      <circle cx="40" cy="40" r="1" fill="#22d3ee" />
+                      <circle cx="60" cy="40" r="1" fill="#22d3ee" />
+                      <circle cx="50" cy="55" r="1" fill="#22d3ee" />
+                    </svg>
+                    
+                    {/* Floating Metrics */}
+                    <div className="absolute top-4 left-4 font-mono text-[8px] text-cyan-400 space-y-1 bg-black/40 p-1 rounded">
+                      <div>REC_092: ACTIVE</div>
+                      <div>FPS: 60.0</div>
+                    </div>
+                    
+                    <div className="absolute bottom-4 right-4 font-mono text-[8px] text-cyan-400 bg-black/40 p-1 rounded text-right">
+                      <div>CONF: {analysis.liveness_score}</div>
+                      <div>LATENCY: 420ms</div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {!analysis && (
@@ -152,11 +192,22 @@ const PrismIdentityLab = ({ onClose }) => {
               {analysis && (
                 <div className="space-y-4">
                   {/* Status Badge */}
-                  <div className="flex justify-center">
+                  <div className="flex flex-col items-center gap-3">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200, damping: 12 }}
+                      className={`p-4 rounded-full border-4 ${
+                        analysis.status === 'Verified' ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-red-500/10 border-red-500/30 text-red-400'
+                      }`}
+                    >
+                      {analysis.status === 'Verified' ? <FaLock className="text-3xl" /> : <FaTimes className="text-3xl" />}
+                    </motion.div>
+                    
                     <span className={`px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
                       analysis.status === 'Verified' ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'
                     }`}>
-                      System Status: {analysis.status} ({analysis.liveness_score} Liveness)
+                      {activeLens === 'recruiter' && analysis.status === 'Verified' ? 'Identity Secured: Professional Access' : `System Status: ${analysis.status} (${analysis.liveness_score} Liveness)`}
                     </span>
                   </div>
 
@@ -218,7 +269,7 @@ const PrismIdentityLab = ({ onClose }) => {
           </div>
           <button 
             onClick={() => {setImage(null); setPreview(null); setAnalysis(null);}} 
-            className="text-cyan-600 hover:text-cyan-400 underline font-bold uppercase"
+            className="text-cyan-900 hover:text-cyan-1000 underline font-bold uppercase"
           >
             Reset Session
           </button>

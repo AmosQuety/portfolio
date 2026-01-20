@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Geist:wght@100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html {
-    @apply scroll-smooth; /* This applies scroll-behavior: smooth; */
+    @apply scroll-smooth;
+    font-family: 'Inter', sans-serif;
   }
 }
 
@@ -21,4 +24,80 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #0ea5e9; /* cyan-500 */
+}
+
+/* Accessibility Modes */
+.high-contrast {
+  --bg-main: #000000 !important;
+  --text-main: #ffffff !important;
+  --accent-main: #ffff00 !important; /* High-viz yellow */
+}
+
+.high-contrast * {
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+  border-color: var(--text-main) !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+.high-contrast .text-cyan-400,
+.high-contrast .text-cyan-500,
+.high-contrast .text-pink-400,
+.high-contrast .text-green-400 {
+  color: var(--accent-main) !important;
+}
+
+.large-font {
+  font-size: 1.25rem !important;
+}
+
+.large-font h1 { font-size: 4rem !important; }
+.large-font h2 { font-size: 3rem !important; }
+.large-font h3 { font-size: 2.5rem !important; }
+.large-font p, .large-font span, .large-font li { font-size: 1.5rem !important; }
+
+/* CRT Flicker & Slow Connection Aesthetics */
+@keyframes crtFlicker {
+  0% { opacity: 0.98; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.99; }
+  15% { opacity: 0.93; }
+  100% { opacity: 1; }
+}
+
+.crt-flicker {
+  animation: crtFlicker 0.15s infinite;
+  position: relative;
+}
+
+.crt-flicker::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 200;
+  background-size: 100% 4px, 3px 100%;
+  pointer-events: none;
+}
+
+.slow-scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(34, 211, 238, 0.2);
+  z-index: 999;
+  pointer-events: none;
+  animation: scanline 4s linear infinite;
+}
+
+@keyframes scanline {
+  0% { top: -2%; }
+  100% { top: 100%; }
 }

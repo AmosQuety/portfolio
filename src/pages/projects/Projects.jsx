@@ -6,11 +6,21 @@ import { BsBuilding } from "react-icons/bs";
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 
+// Project Mockups
+import prismAiImg from "../../assets/projects/prism_ai.png";
+import refugeLinkImg from "../../assets/projects/refugelink.png";
+import rentalTrackImg from "../../assets/projects/rentaltrack.png";
+import lugaLingoImg from "../../assets/projects/lugalingo.png";
+import hostelEaseImg from "../../assets/projects/hostelease.png";
+import pyCodeCommenterImg from "../../assets/projects/pycodecommenter.png";
+
 function Projects() {
   const projects = [
     {
       title: "Prism AI",
       icon: FaBrain,
+      image: prismAiImg,
+      video: "assets/projects/prism AI demo.mp4",
       description: "Production-grade biometric SaaS combining Computer Vision & GenAI. Features Face ID login, liveness detection, and RAG document analysis using a microservices architecture (Node.js + Python).",
       technologies: ["React", "GraphQL", "Python", "FastAPI", "Gemini API", "DeepFace", "Supabase"],
       githubLink: "https://github.com/AmosQuety/Super-AI-App",
@@ -19,6 +29,7 @@ function Projects() {
     {
       title: "RefugeLink",
       icon: FaWhatsapp,
+      image: refugeLinkImg,
       description: "AI-powered WhatsApp chatbot providing 24/7 refugee assistance in Mbarara, Uganda. Delivers instant access to registration info, food assistance, shelter, and emergency contacts via conversational interface.",
       technologies: ["TypeScript", "Node.js", "Express", "Twilio API", "Supabase", "PostgreSQL", "Render"],
       githubLink: "https://github.com/AmosQuety/RefugeLink", 
@@ -27,7 +38,8 @@ function Projects() {
     {
       title: "RentalTrack",
       icon: FaMobileAlt,
-      description: "Offline-first React Native property management app for landlords to track tenants, rent payments, and automate reminders. Features SQLite database, local notifications, and comprehensive analytics.",
+      image: rentalTrackImg,
+      description: "Offline React Native property management app for landlords to track tenants, rent payments, and automate reminders. Features SQLite database, local notifications, and comprehensive analytics.",
       technologies: ["React Native", "TypeScript", "SQLite", "Expo", "Node.js"],
       githubLink: "https://github.com/AmosQuety/RentalTrack", 
       liveLink: "https://drive.google.com/file/d/110kPGSJT9Gp4vVRQyHor5Qlf8PKCAlZK/view?usp=sharing", 
@@ -36,7 +48,8 @@ function Projects() {
     {
       title: "LugaLingo",
       icon: FaLanguage,
-      description: "Gamified language-learning app with personalized lessons & 30% higher user retention through progress tracking.",
+      image: lugaLingoImg,
+      description: "A gamified language-learning application focused on teaching Luganda through structured lessons, progress tracking, and achievement-based motivation.",
       technologies: ["React", "Node.js", "Firebase"],
       githubLink: null,
       liveLink: null,
@@ -45,7 +58,8 @@ function Projects() {
     {
       title: "HostelEase",
       icon: BsBuilding,
-      description: "Streamlined hostel booking system for 500+ students, reducing administrative overhead and manual registration by 50%.",
+      image: hostelEaseImg,
+      description: "A web-based hostel booking and management system that allows students to browse, reserve, and confirm hostel accommodation remotely, while enabling administrators to manage availability, allocations, and records digitally",
       technologies: ["React", "Node.js", "MongoDB"],
       githubLink: "https://github.com/AmosQuety/HostelEase",
       liveLink: null,
@@ -53,6 +67,7 @@ function Projects() {
     {
       title: "PyCodeCommenter",
       icon: SiPypi,
+      image: pyCodeCommenterImg,
       description: "Automated Google-style docstring generator for Python using AST parsing, saving developers significant documentation time.",
       technologies: ["Python", "AST", "PyPI"],
       githubLink: "https://github.com/AmosQuety/PyCodeCommenter",
@@ -74,11 +89,11 @@ function Projects() {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
           viewport={{ once: true }}
-          className="text-3xl sm:text-4xl font-bold mb-12 text-center text-cyan-400 uppercase tracking-[0.2em]"
+          className="text-3xl sm:text-4xl font-bold mb-12 text-center text-cyan-400 uppercase tracking-widest font-['Geist']"
         >
-          My Projects
+          View Projects
         </motion.h2>
 
         {/* APK Installation Instructions */}

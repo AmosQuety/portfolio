@@ -19,10 +19,8 @@ function Education() {
       className="py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/50"
     >
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center text-light-green-500">
-          <span className="border-b-4 border-light-green-500 pb-2">
-            Education
-          </span>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center text-light-green-500 uppercase tracking-widest font-['Geist']">
+          Education
         </h2>
 
         <div className="space-y-8 md:space-y-10">

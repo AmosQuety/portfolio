@@ -71,7 +71,7 @@ const Skills = () => {
         {/* Responsive container padding */}
         <div className="flex flex-col items-center">
           <div className="h-[3px] w-2/3 max-w-md bg-gradient-to-r from-transparent via-purple-600 to-transparent mb-6" />
-          <h2 className="text-purple-500 text-center text-3xl md:text-4xl font-bold mb-10 py-2 px-4 rounded-md bg-opacity-50 tracking-wide">
+          <h2 className="text-purple-500 text-center text-3xl md:text-4xl font-bold mb-10 py-2 px-4 rounded-md bg-opacity-50 uppercase tracking-widest font-['Geist']">
             Skills
           </h2>
 

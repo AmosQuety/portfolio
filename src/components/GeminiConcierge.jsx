@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaRobot, FaTimes, FaSeedling, FaWifi, FaChevronRight, FaExpandAlt, FaCompressAlt } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { usePortfolio } from '../context/PortfolioContext';
+import ReactMarkdown from 'react-markdown';
 
 const SYSTEM_INSTRUCTION = `
 You are the AI Concierge for Nabasa Amos. 

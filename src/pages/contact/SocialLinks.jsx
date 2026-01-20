@@ -2,8 +2,8 @@ import {
   FaLinkedin,
   FaTwitter,
   FaGithub,
-  FaBookOpen,
   FaWhatsapp,
+  FaTerminal,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import CopyEmailButton from "../CopyEmailButton";
@@ -52,10 +52,10 @@ export const SocialLinks = () => {
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
       viewport={{ once: true }}
-      className="bg-slate-800 p-8 rounded-xl border border-slate-700/50 shadow-lg"
+      className="bg-slate-800/40 backdrop-blur-md p-8 rounded-2xl border border-slate-700/50 shadow-2xl"
     >
-      <h3 className="text-xl font-semibold mb-6 text-slate-100 flex items-center gap-2">
-        <FaBookOpen className="text-cyan-400" />
+      <h3 className="text-xl font-bold mb-8 text-white flex items-center gap-2 uppercase tracking-widest">
+        <FaTerminal className="text-pink-400" />
         Connect with me
       </h3>
 

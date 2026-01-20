@@ -12,9 +12,12 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { ContactSection } from "./Sections/ContactSection";
 import { Learning } from "./CurrentlyLearning/Learning";
+import { ManifestoSection } from "./Sections/ManifestoSection";
 import { usePortfolio } from "../context/PortfolioContext";
 import CodeReview from "./Sections/CodeReview";
 import TransparencyFooter from "../components/TransparencyFooter";
+import { motion } from "framer-motion";
+
 
 const PageSection = ({ id, children, className = "", scrollMarginClass }) => {
   return (
@@ -32,11 +35,11 @@ PageSection.propTypes = {
 };
 
 const sections = [
-  { id: "about", navText: "ABOUT", Component: About, wrapperClassName: "mt-16 md:mt-24" },
-  { id: "education", navText: "EDUCATION", Component: Education, wrapperClassName: "mt-16 md:mt-24" },
-  { id: "experience", navText: "EXPERIENCE", Component: ExperienceSection, wrapperClassName: "mt-16 md:mt-24" },
-  { id: "skills", navText: "SKILLS", Component: Skills, wrapperClassName: "mt-16 md:mt-24" },
-  { id: "projects", navText: "PROJECTS", Component: Projects, wrapperClassName: "mt-16 md:mt-24 py-10" },
+  { id: "about", navText: "ABOUT", Component: About, wrapperClassName: "mt-20 md:mt-32" },
+  { id: "education", navText: "EDUCATION", Component: Education, wrapperClassName: "mt-20 md:mt-32" },
+  { id: "experience", navText: "EXPERIENCE", Component: ExperienceSection, wrapperClassName: "mt-20 md:mt-32" },
+  { id: "skills", navText: "SKILLS", Component: Skills, wrapperClassName: "mt-20 md:mt-32" },
+  { id: "projects", navText: "PROJECTS", Component: Projects, wrapperClassName: "mt-20 md:mt-32 py-20" },
 ];
 
 const navItems = sections.map((section) => ({
@@ -49,7 +52,7 @@ const RESUME_FILE_NAME = "Nabasa_Amos_CV.pdf";
 const SCROLL_MARGIN_TOP_CLASS = "scroll-mt-16";
 const HEADER_HEIGHT_PADDING_CLASS = "pt-16";
 
-function Home() {
+const Home = () => {
   const [connection, setConnection] = useState("fast");
   const { activeLens } = usePortfolio();
 
@@ -77,23 +80,43 @@ function Home() {
           <div className="w-full lg:w-1/2 text-center lg:text-left mb-9">
             <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-300 mb-12">
               <div className="text-white leading-relaxed">
-                <div>Hello,</div>
+                <div>Hey,</div>
                 <span>I'm <span className="text-pink-400">{SITE_TITLE}</span>,</span>
               </div>
-              <div className="my-2 sm:my-3"> a passionate</div>
-              <div className="text-amber-600">Software Developer.</div>
-            </div>
+              {/* Change the line below */}
+              <div className="my-2 sm:my-3"> a passionate</div> 
+              <div className="text-amber-600">Software Engineer.</div>
+                          </div>
+
+            {/* QUICK SUMMARY BAR (Recruiter Mode) */}
+            {activeLens === 'recruiter' && (
+              <div className="mt-8 mb-4 p-4 rounded-xl border border-cyan-400/30 bg-cyan-400/5 shadow-[0_0_15px_rgba(34,211,238,0.1)] inline-flex flex-wrap items-center gap-4 text-xs font-bold uppercase tracking-widest text-cyan-400">
+                <span>3+ Years Exp</span>
+                <span className="w-1 h-1 rounded-full bg-cyan-400/40"></span>
+                <span>Specialist in Resilient AI</span>
+                <span className="w-1 h-1 rounded-full bg-cyan-400/40"></span>
+                <span>MUST Software Engineering Graduate</span>
+              </div>
+            )}
 
             <div className="mt-4 mb-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 onClick={() => document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })}
                 className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-2xl shadow-lg transition duration-300"
               >
                 Contact Me
-              </button>
-              <a href={`/${RESUME_FILE_NAME}`} download className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white text-center px-6 py-2.5 rounded-2xl shadow-lg transition duration-300">
+              </motion.button>
+              <motion.a 
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                href={`/${RESUME_FILE_NAME}`} 
+                download 
+                className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white text-center px-6 py-2.5 rounded-2xl shadow-lg transition duration-300"
+              >
                 Get Resume
-              </a>
+              </motion.a>
             </div>
           </div>
 

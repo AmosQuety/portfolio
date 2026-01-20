@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
+import { motion } from "framer-motion";
 
 const About = () => {
   const { activeLens } = usePortfolio();
@@ -12,7 +13,7 @@ const About = () => {
   return (
     <div className="text-white py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center text-cyan-400 mb-10 md:mb-14 uppercase tracking-[0.2em]">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-cyan-400 mb-10 md:mb-14 uppercase tracking-widest font-['Geist']">
           Who I Am
         </h2>
 
@@ -73,13 +74,15 @@ const About = () => {
               )}
 
               {!isResilientMode && (
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   onClick={() => setIsExpanded(!isExpanded)}
                   className="mt-6 px-8 py-3 bg-slate-700/50 hover:bg-cyan-500 text-white text-sm font-bold rounded-full transition-all duration-300 border border-slate-600 hover:border-cyan-400 flex items-center gap-2 group"
                 >
                   {isExpanded ? "Show Less" : "Read My Story"}
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </button>
+                </motion.button>
               )}
             </div>
           </div>
