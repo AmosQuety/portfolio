@@ -106,7 +106,7 @@ export const SystemConsole = () => {
           className={`fixed z-[10000] bg-slate-950/95 backdrop-blur-2xl border border-cyan-500/30 flex flex-col font-mono shadow-2xl transition-all duration-300 ${
             isMaximized 
               ? 'inset-0 rounded-none' 
-              : 'top-20 left-1/2 -translate-x-1/2 w-[90%] max-w-2xl h-[500px] rounded-2xl'
+              : 'top-16 sm:top-20 md:top-24 left-1/2 -translate-x-1/2 w-full sm:w-[90%] max-w-2xl h-[calc(100%-4rem)] sm:h-[500px] rounded-t-2xl sm:rounded-2xl'
           }`}
         >
           {/* Terminal Header */}

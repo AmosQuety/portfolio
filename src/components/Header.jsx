@@ -258,7 +258,7 @@ const Header = ({ navItems, siteTitle }) => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-slate-900 shadow-2xl md:hidden flex flex-col p-6 space-y-4 border-t border-white/10"
+            className="absolute top-full left-0 w-full bg-slate-900/98 backdrop-blur-2xl shadow-2xl md:hidden flex flex-col p-6 space-y-4 border-t border-white/10 z-[200]"
           >
             {/* Mobile Lens Selector */}
             <div className="pb-4 border-b border-white/10">
