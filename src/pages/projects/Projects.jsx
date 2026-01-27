@@ -7,7 +7,8 @@ import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 
 // Project Mockups
-import prismAiImg from "../../assets/projects/prism_ai.png";
+import xemoraImg from "../../assets/projects/prism_ai.png";
+import xemoraVideo from "../../assets/projects/Xemora.mp4";
 import refugeLinkImg from "../../assets/projects/refugelink.png";
 import rentalTrackImg from "../../assets/projects/rentaltrack.png";
 import lugaLingoImg from "../../assets/projects/lugalingo.png";
@@ -17,10 +18,10 @@ import pyCodeCommenterImg from "../../assets/projects/pycodecommenter.png";
 function Projects() {
   const projects = [
     {
-      title: "Prism AI",
+      title: "Xemora",
       icon: FaBrain,
-      image: prismAiImg,
-      video: "assets/projects/prism AI demo.mp4",
+      image: xemoraImg,
+      video: xemoraVideo,
       description: "Production-grade biometric SaaS combining Computer Vision & GenAI. Features Face ID login, liveness detection, and RAG document analysis using a microservices architecture (Node.js + Python).",
       technologies: ["React", "GraphQL", "Python", "FastAPI", "Gemini API", "DeepFace", "Supabase"],
       githubLink: "https://github.com/AmosQuety/Super-AI-App",

@@ -94,7 +94,7 @@ function ProjectCard({ project }) {
           </div>
         ) : activeLens === 'engineer' ? (
           <ArchitectureXRay 
-            {...(project.title.trim().toLowerCase() === "prism ai" ? {
+            {...(project.title.trim().toLowerCase() === "xemora" ? {
               backend: 'FastAPI/Node',
               data: 'Supabase/Vector',
               scores: { speed: 92, security: 98, cost: 85 }
@@ -175,7 +175,7 @@ function ProjectCard({ project }) {
             </div>
           )}
 
-          {project.title.trim().toLowerCase() === "prism ai" && (
+          {project.title.trim().toLowerCase() === "xemora" && (
             <button
               onClick={() => setShowDemo(true)}
               className="flex items-center gap-2 text-xs font-bold text-cyan-400 border border-cyan-400/30 px-3 py-1.5 rounded-lg hover:bg-cyan-400 hover:text-slate-900 transition-all shadow-lg z-20"
