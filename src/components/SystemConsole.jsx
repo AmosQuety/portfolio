@@ -106,7 +106,7 @@ export const SystemConsole = () => {
           className={`fixed z-[10000] bg-slate-950/95 backdrop-blur-2xl border border-cyan-500/30 flex flex-col font-mono shadow-2xl transition-all duration-300 ${
             isMaximized 
               ? 'inset-0 rounded-none' 
-              : 'top-16 sm:top-20 md:top-24 left-1/2 -translate-x-1/2 w-full sm:w-[90%] max-w-2xl h-[calc(100%-4rem)] sm:h-[500px] rounded-t-2xl sm:rounded-2xl'
+              : 'top-16 sm:top-20 md:top-24 left-1/2 -translate-x-1/2 w-[95%] sm:w-[90%] max-w-2xl h-[calc(100%-6rem)] sm:h-[500px] rounded-t-2xl sm:rounded-2xl'
           }`}
         >
           {/* Terminal Header */}
@@ -148,7 +148,7 @@ export const SystemConsole = () => {
             className="flex-1 overflow-y-auto text-white p-6 space-y-2 scrollbar-hide"
           >
             {history.map((line, i) => (
-              <div key={i} className={`text-[12px] md:text-[13px] leading-relaxed ${line.startsWith('>') ? 'text-cyan-400 font-bold' : 'text-slate-300'}`}>
+              <div key={i} className={`text-[10px] sm:text-[12px] md:text-[13px] leading-relaxed ${line.startsWith('>') ? 'text-cyan-400 font-bold' : 'text-slate-300'}`}>
                 {line}
               </div>
             ))}

@@ -107,12 +107,20 @@ const GeminiConcierge = ({ connection = "fast" }) => {
       }));
 
       const chat = model.startChat({ history: apiHistory });
+      
+      if (!import.meta.env.VITE_GEMINI_API_KEY) {
+        throw new Error("API_KEY_MISSING");
+      }
+
       const result = await chat.sendMessage(currentInput);
       const text = (await result.response).text();
 
       setMessages(prev => [...prev, { role: 'model', text }]);
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'model', text: "Connection flickered. Like a dry spell, please try again." }]);
+      const errorMessage = error.message === "API_KEY_MISSING" 
+        ? "Concierge is taking a break (API key missing). Please check with Amos."
+        : "Connection flickered. Like a dry spell, please try again.";
+      setMessages(prev => [...prev, { role: 'model', text: errorMessage }]);
     } finally {
       setIsLoading(false);
     } 
@@ -206,9 +214,14 @@ const GeminiConcierge = ({ connection = "fast" }) => {
                 <input 
                   type="text" value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleSend();
+                    }
+                  }}
                   placeholder="Ask a quick question..."
-                  className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-2 text-sm text-gray-700 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                  className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
                 />
                 <button onClick={handleSend} className="bg-cyan-500 text-white p-2 rounded-xl">
                   <FaChevronRight />
