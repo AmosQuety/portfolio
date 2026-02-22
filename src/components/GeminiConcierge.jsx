@@ -401,7 +401,7 @@ const GeminiConcierge = ({ connection = 'fast' }) => {
                   placeholder={
                     connection === 'offline'
                       ? 'Limited mode — keep it brief'
-                      : 'Ask about Amos's experience or projects…'
+                      : "Ask about Amos's experience or projects\u2026"
                   }
                   disabled={isLoading || !!initError}
                   aria-label="Message input"
