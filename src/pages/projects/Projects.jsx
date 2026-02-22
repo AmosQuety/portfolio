@@ -1,6 +1,6 @@
 // sections/Projects.js
 
-import { FaLeaf, FaLanguage, FaMobileAlt, FaWhatsapp, FaBrain } from "react-icons/fa"; // Added FaBrain
+import { FaLanguage, FaMobileAlt, FaWhatsapp, FaBrain, FaCapsules, FaTv } from "react-icons/fa"; // Added FaBrain
 import { SiPypi } from "react-icons/si";
 import { BsBuilding } from "react-icons/bs";
 import { motion } from "framer-motion";
@@ -14,6 +14,8 @@ import rentalTrackImg from "../../assets/projects/rentaltrack.png";
 import lugaLingoImg from "../../assets/projects/lugalingo.png";
 import hostelEaseImg from "../../assets/projects/hostelease.png";
 import pyCodeCommenterImg from "../../assets/projects/pycodecommenter.png";
+import pharmaSearchImg from "../../assets/projects/pharmasearch.png";
+import serieDownloaderImg from "../../assets/projects/seriedownloader.png";
 
 function Projects() {
   const projects = [
@@ -26,6 +28,25 @@ function Projects() {
       technologies: ["React", "GraphQL", "Python", "FastAPI", "Gemini API", "DeepFace", "Supabase"],
       githubLink: "https://github.com/AmosQuety/Super-AI-App",
       liveLink: "http://prism-vision.vercel.app", 
+    },
+     {
+      title: "PharmaSearch",
+      icon: FaCapsules,
+      image: pharmaSearchImg,
+      description: "A B2B pharmaceutical platform connecting pharmacists and wholesalers across Uganda. Features real-time medicine availability search with fuzzy matching, wholesaler verification, and an inventory management dashboard.",
+      technologies: ["React", "Node.js", "Express", "Supabase", "PostgreSQL", "Tailwind CSS"],
+      githubLink: "https://github.com/AmosQuety/Drug-Site",
+      liveLink: "https://drug-site-three.vercel.app",
+    },
+    
+    {
+      title: "Serie Downloader",
+      icon: FaTv,
+      image: serieDownloaderImg,
+      description: "A high-performance desktop media center and automated downloader built with the Electron-Vite ecosystem. Transforms local libraries into a streaming-like experience with rich metadata enrichment and automated installers.",
+      technologies: ["Electron", "React", "TypeScript", "Vite", "SQLite", "Zustand", "Playwright"],
+      githubLink: "https://github.com/AmosQuety/Serie-Downloader",
+      liveLink: "https://github.com/AmosQuety/Serie-Downloader/releases", // Directing to releases for the desktop app
     },
     {
       title: "RefugeLink",
