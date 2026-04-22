@@ -20,7 +20,7 @@ const AppContent = () => {
     `}>
       <SystemConsole />
       {isOffline && <div className="slow-scanline" />}
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <ToastContainer position="top-center" />
         <Routes>
           <Route path="/" element={<Home />} />

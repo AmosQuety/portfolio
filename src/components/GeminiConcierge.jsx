@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaRobot,
   FaTimes,
-  FaWifi,
   FaChevronRight,
   FaExpandAlt,
   FaCompressAlt,
@@ -13,39 +11,9 @@ import {
 import PropTypes from 'prop-types';
 import { usePortfolio } from '../context/PortfolioContext';
 import ReactMarkdown from 'react-markdown';
+import { buildBaseSystemPrompt } from '../lib/profilePrompt';
 
-// ---------------------------------------------------------------------------
-// System Prompt — source of truth for all AI behaviour
-// ---------------------------------------------------------------------------
-const BASE_SYSTEM_INSTRUCTION = `
-You are the AI Concierge for Nabasa Amos — a Software Engineering student and developer based in Uganda.
-Your sole purpose is to represent Amos accurately using the verified data below.
-
-=== VERIFIED PROFILE DATA ===
-
-EDUCATION:
-- B.Sc. Software Engineering — Mbarara University of Science and Technology (MUST), 2022–2026
-- A-Level (UACE) — St. Mary's College Rushoroza, 2019–2020
-- O-Level (UCE) — Mbarara High School, 2015–2018
-- Primary — Kabale Preparatory School
-
-WORK EXPERIENCE:
-- John Vince Engineering (Jun–Jul 2024): Full-Stack Intern. Built "HostelEase," a MERN-stack hostel management system.
-- CAMTech Uganda (Sep–Oct 2023): Software Dev Intern. Built a health-focused voice bot using Python and the ChatGPT API.
-- Hammer Uganda (Jul–Sep 2025): Site Verification Engineer. Analysed network performance and drive-test log files.
-
-NOTABLE PROJECTS:
-- **Prism AI** — Biometric SaaS platform (React, FastAPI, Python, DeepFace). Edge-first privacy architecture.
-- **RefugeLink** — WhatsApp AI chatbot for refugees in Mbarara. Voice-to-query support using Google Gemini.
-- **RentalTrack** — Offline-first React Native app for landlord and tenant management.
-- **PyCodeCommenter** — Python library published on PyPI for automated docstring generation.
-
-=== RESPONSE GUIDELINES ===
-- Be concise, professional, and factually accurate.
-- Use Markdown: **bold** for project names and key terms; bullet lists when enumerating more than two items.
-- Never invent facts. If uncertain, say so clearly.
-- Do not use informal slang, agricultural metaphors, or overly casual language.
-`;
+const BASE_SYSTEM_INSTRUCTION = buildBaseSystemPrompt();
 
 const CONNECTION_INSTRUCTIONS = {
   offline: `
@@ -67,7 +35,7 @@ const LENS_INSTRUCTIONS = {
   recruiter: `
 ACTIVE LENS: RECRUITER.
 Emphasise business value, successful delivery, leadership signals, and measurable outcomes.
-Frame Amos's work in terms of ROI and professional impact.
+Frame Amos' work in terms of ROI and professional impact.
 `,
   engineer: `
 ACTIVE LENS: ENGINEER.
@@ -95,8 +63,11 @@ const CONNECTION_DELAYS = { slow: 3000, offline: 400 };
 
 const INITIAL_MESSAGE = {
   role: 'model',
-  text: "Hello! I'm Amos's AI Concierge. Ask me anything about his background, projects, or technical experience.",
+  text: "Hello! I'm Amos' AI Concierge. Ask me anything about his background, projects, or technical experience.",
 };
+
+const HEADER_GAP_PX = 8;
+const FALLBACK_TOP_OFFSET_PX = 88;
 
 const ERROR_MESSAGES = {
   API_KEY_MISSING: 'The concierge is temporarily unavailable — API key not configured. Please contact Amos directly.',
@@ -156,7 +127,7 @@ const ChatMessage = ({ message }) => {
       <div
         className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${
           isUser
-            ? 'bg-cyan-600 text-white rounded-tr-none shadow-md'
+            ? 'bg-cyan-700 text-white rounded-tr-none shadow-md font-semibold'
             : 'bg-slate-800 text-slate-200 rounded-tl-none border border-slate-700 shadow-lg'
         }`}
       >
@@ -187,42 +158,30 @@ ChatMessage.propTypes = {
 // ---------------------------------------------------------------------------
 // Main Component
 // ---------------------------------------------------------------------------
-const GeminiConcierge = ({ connection = 'fast' }) => {
+const GeminiConcierge = ({ connection = 'fast' } = {}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
   const [messages, setMessages] = useState([INITIAL_MESSAGE]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [initError, setInitError] = useState(null);
+  const [maximizedTopOffset, setMaximizedTopOffset] = useState(FALLBACK_TOP_OFFSET_PX);
+
+  const [sessionId, setSessionId] = useState(null);
 
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
   const { activeLens } = usePortfolio();
 
-  // Build a stable reference to the Gemini model.
-  // Re-create it whenever connection or activeLens changes.
-  const modelRef = useRef(null);
-
+  // Initialize stable sessionId
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    if (!apiKey) {
-      setInitError('VITE_GEMINI_API_KEY is not set. The concierge will not function.');
-      return;
+    let sid = sessionStorage.getItem('portfolio_ai_sid');
+    if (!sid) {
+      sid = crypto.randomUUID();
+      sessionStorage.setItem('portfolio_ai_sid', sid);
     }
-    try {
-      const genAI = new GoogleGenerativeAI(apiKey);
-      modelRef.current = genAI.getGenerativeModel({
-        model: 'gemini-1.5-flash',
-        systemInstruction: {
-          parts: [{ text: buildSystemInstruction(connection, activeLens) }],
-        },
-      });
-      setInitError(null);
-    } catch (err) {
-      console.error('[GeminiConcierge] Model initialisation failed:', err);
-      setInitError('Failed to initialise the AI model.');
-    }
-  }, [connection, activeLens]);
+    setSessionId(sid);
+  }, []);
 
   // Auto-scroll on new messages
   useEffect(() => {
@@ -238,6 +197,41 @@ const GeminiConcierge = ({ connection = 'fast' }) => {
     }
   }, [isOpen]);
 
+  // Keep maximized chat offset aligned to the fixed navbar height.
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
+    const updateTopOffset = () => {
+      const header = document.getElementById('site-header');
+      if (!header) {
+        setMaximizedTopOffset(FALLBACK_TOP_OFFSET_PX);
+        return;
+      }
+
+      const { bottom } = header.getBoundingClientRect();
+      setMaximizedTopOffset(Math.max(FALLBACK_TOP_OFFSET_PX, Math.ceil(bottom + HEADER_GAP_PX)));
+    };
+
+    updateTopOffset();
+
+    const header = document.getElementById('site-header');
+    let observer;
+
+    if (header && 'ResizeObserver' in window) {
+      observer = new ResizeObserver(updateTopOffset);
+      observer.observe(header);
+    }
+
+    window.addEventListener('resize', updateTopOffset);
+    window.addEventListener('orientationchange', updateTopOffset);
+
+    return () => {
+      window.removeEventListener('resize', updateTopOffset);
+      window.removeEventListener('orientationchange', updateTopOffset);
+      observer?.disconnect();
+    };
+  }, []);
+
   const handleClose = useCallback(() => {
     setIsOpen(false);
     setIsMaximized(false);
@@ -246,13 +240,6 @@ const GeminiConcierge = ({ connection = 'fast' }) => {
   const handleSend = useCallback(async () => {
     const trimmed = input.trim();
     if (!trimmed || isLoading) return;
-    if (!modelRef.current) {
-      setMessages((prev) => [
-        ...prev,
-        { role: 'model', text: ERROR_MESSAGES.API_KEY_MISSING },
-      ]);
-      return;
-    }
 
     const userMessage = { role: 'user', text: trimmed };
     setMessages((prev) => [...prev, userMessage]);
@@ -260,34 +247,39 @@ const GeminiConcierge = ({ connection = 'fast' }) => {
     setIsLoading(true);
 
     const delay = CONNECTION_DELAYS[connection] ?? 0;
-
     await new Promise((resolve) => setTimeout(resolve, delay));
 
     try {
-      // Build history from all messages except the hardcoded greeting (index 0).
-      // Include the user message we just appended so the model has full context.
-      const chatHistory = messages
-        .filter((_, i) => i !== 0)
-        .map((m) => ({
-          role: m.role === 'user' ? 'user' : 'model',
-          parts: [{ text: m.text }],
-        }));
+      const systemPrompt = buildSystemInstruction(connection, activeLens);
+      
+      const response = await fetch('/.netlify/functions/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: trimmed,
+          sessionId,
+          history: messages.filter((_, i) => i !== 0), // Skip initial greeting
+          systemPrompt,
+        }),
+      });
 
-      const chat = modelRef.current.startChat({ history: chatHistory });
-      const result = await chat.sendMessage(trimmed);
-      const responseText = result.response.text();
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
 
-      setMessages((prev) => [...prev, { role: 'model', text: responseText }]);
+      const data = await response.json();
+      setMessages((prev) => [...prev, { role: 'model', text: data.reply }]);
     } catch (error) {
-      console.error('[GeminiConcierge] API error:', error);
+      const errorMsg = resolveErrorMessage(error);
+      setInitError(errorMsg);
       setMessages((prev) => [
         ...prev,
-        { role: 'model', text: resolveErrorMessage(error) },
+        { role: 'model', text: errorMsg },
       ]);
     } finally {
       setIsLoading(false);
     }
-  }, [input, isLoading, messages, connection]);
+  }, [input, isLoading, messages, connection, activeLens, sessionId]);
 
   const handleKeyDown = useCallback(
     (e) => {
@@ -305,8 +297,11 @@ const GeminiConcierge = ({ connection = 'fast' }) => {
   return (
     <div
       className={`fixed z-[100] transition-all duration-300 ${
-        isMaximized ? 'inset-4' : 'bottom-6 right-6'
+        isMaximized
+          ? 'left-2 right-2 bottom-2 sm:left-4 sm:right-4 sm:bottom-4'
+          : 'bottom-6 right-6'
       }`}
+      style={isMaximized ? { top: `${maximizedTopOffset}px` } : undefined}
     >
       {/* Trigger button */}
       <AnimatePresence>
@@ -346,7 +341,7 @@ const GeminiConcierge = ({ connection = 'fast' }) => {
                 </div>
                 <div>
                   <p className="font-semibold text-slate-100 text-sm leading-tight">
-                    Amos's AI Concierge
+                    Amos&rsquo; Concierge
                   </p>
                   <ConnectionBadge connection={connection} />
                 </div>
@@ -401,36 +396,44 @@ const GeminiConcierge = ({ connection = 'fast' }) => {
                   placeholder={
                     connection === 'offline'
                       ? 'Limited mode — keep it brief'
-                      : "Ask about Amos's experience or projects\u2026"
+                      : "Ask about Amos' experience or projects\u2026"
                   }
                   disabled={isLoading || !!initError}
                   aria-label="Message input"
                   className="
-                    flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5
+                    flex-1 bg-black border border-slate-700 rounded-xl px-4 py-2.5
                     text-sm text-slate-100 placeholder-slate-500
                     focus:outline-none focus:ring-1 focus:ring-cyan-500
                     disabled:opacity-50 disabled:cursor-not-allowed
                     transition-colors duration-150
                   "
                 />
-                <button
-                  onClick={handleSend}
-                  disabled={isLoading || !input.trim() || !!initError}
-                  aria-label="Send message"
-                  className="
-                    bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600
-                    disabled:opacity-40 disabled:cursor-not-allowed
-                    text-white p-2.5 rounded-xl transition-colors duration-150
-                    focus:outline-none focus:ring-2 focus:ring-cyan-400
-                  "
-                >
-                  <FaChevronRight />
-                </button>
+                <div className="relative group">
+                  <button
+                    onClick={handleSend}
+                    disabled={isLoading || !input.trim() || !!initError}
+                    aria-label="Send message"
+                    className="
+                      bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600
+                      disabled:opacity-40 disabled:cursor-not-allowed
+                      text-white p-2.5 rounded-xl transition-colors duration-150
+                      focus:outline-none focus:ring-2 focus:ring-cyan-400
+                    "
+                  >
+                    <FaChevronRight />
+                  </button>
+                  {/* subtle tooltip on hover */}
+                  <div className="absolute bottom-full right-0 mb-2 px-2 py-1 bg-slate-800 text-[9px] text-slate-400 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap border border-slate-700 shadow-lg">
+                    AI responses may vary in accuracy
+                  </div>
+                </div>
               </div>
 
-              <p className="text-[10px] text-slate-600 mt-2 text-center">
-                Powered by Gemini 1.5 Flash · Responses may not always be accurate
-              </p>
+              <div className="text-center border-t border-slate-700/50 pt-2 mt-2">
+                <p className="text-[8px] text-slate-700 italic tracking-wide">
+                  Responses are AI-generated
+                </p>
+              </div>
             </div>
           </motion.div>
         )}
@@ -441,10 +444,6 @@ const GeminiConcierge = ({ connection = 'fast' }) => {
 
 GeminiConcierge.propTypes = {
   connection: PropTypes.oneOf(['fast', 'slow', 'offline']),
-};
-
-GeminiConcierge.defaultProps = {
-  connection: 'fast',
 };
 
 export default GeminiConcierge;

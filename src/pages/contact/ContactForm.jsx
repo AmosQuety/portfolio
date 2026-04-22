@@ -23,7 +23,7 @@ export const ContactForm = () => {
       formRef.current.reset();
     } catch (error) {
       toast.error("Failed to send message. Please try again.");
-      console.error("EmailJS Error:", error);
+
     }
   };
 
