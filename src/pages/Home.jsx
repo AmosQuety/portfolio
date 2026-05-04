@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
-import About from "./About"; 
+import About from "./About";
 import ExperienceSection from "./ExperienceSection";
 import Skills from "./Skills";
 import Education from "./Education";
 import Projects from "./projects/Projects";
-import Coder from "./Coder"; 
-import Header from "../components/Header"; 
+import Coder from "./Coder";
+import Header from "../components/Header";
 import GeminiConcierge from "../components/GeminiConcierge";
 import ConnectivitySlider from "../components/ConnectivitySlider";
 import { useState } from "react";
@@ -47,7 +47,7 @@ const navItems = sections.map((section) => ({
   text: section.navText,
 }));
 
-const SITE_TITLE = "Nabasa Amos";
+const SITE_TITLE = "Nabasa Amos(Amos Quety)";
 const RESUME_FILE_NAME = "Nabasa_Amos_CV.pdf";
 const SCROLL_MARGIN_TOP_CLASS = "scroll-mt-16";
 const HEADER_HEIGHT_PADDING_CLASS = "pt-16";
@@ -62,15 +62,15 @@ const Home = () => {
   return (
     <div className="bg-darkBlue text-white  min-h-screen">
       <Header navItems={navItems} siteTitle={SITE_TITLE} />
-      
+
       {/* Visual Empathy Overlay for Resilient Lens */}
       {isResilientMode && (
         <div className="fixed inset-0 z-[999] pointer-events-none opacity-[0.03]"
-             style={{
-               background: `linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+          style={{
+            background: `linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
                             linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))`,
-               backgroundSize: '100% 2px, 3px 100%'
-             }}
+            backgroundSize: '100% 2px, 3px 100%'
+          }}
         />
       )}
 
@@ -84,9 +84,9 @@ const Home = () => {
                 <span>I'm <span className="text-pink-400">{SITE_TITLE}</span>,</span>
               </div>
               {/* Change the line below */}
-              <div className="my-2 sm:my-3"> a passionate</div> 
+              <div className="my-2 sm:my-3"> a passionate</div>
               <div className="text-amber-600">Software Engineer.</div>
-                          </div>
+            </div>
 
             {/* QUICK SUMMARY BAR (Recruiter Mode) */}
             {activeLens === 'recruiter' && (
@@ -108,11 +108,11 @@ const Home = () => {
               >
                 Contact Me
               </motion.button>
-              <motion.a 
+              <motion.a
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                href={`/${RESUME_FILE_NAME}`} 
-                download 
+                href={`/${RESUME_FILE_NAME}`}
+                download
                 className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white text-center px-6 py-2.5 rounded-2xl shadow-lg transition duration-300"
               >
                 Get Resume
@@ -128,7 +128,7 @@ const Home = () => {
                 <p className="text-sm text-slate-300 italic">"Visual intensity reduced for low-end hardware empathy."</p>
               </div>
             ) : connection === 'fast' ? (
-              <Coder /> 
+              <Coder />
             ) : (
               <div className="border border-dashed border-slate-700 p-10 rounded-2xl text-center w-full bg-slate-900/40">
                 <p className="text-xs text-slate-500 mb-2 uppercase tracking-widest">Efficiency Mode</p>
@@ -141,7 +141,7 @@ const Home = () => {
         {/* Passing 'connection' prop to all components in sections */}
         {sections.map(({ id, Component, wrapperClassName }) => (
           <PageSection key={id} id={id} className={wrapperClassName} scrollMarginClass={SCROLL_MARGIN_TOP_CLASS}>
-            <Component connection={connection} /> 
+            <Component connection={connection} />
           </PageSection>
         ))}
 
@@ -149,7 +149,7 @@ const Home = () => {
 
         <ContactSection />
         <Learning />
-        
+
         {/* Simulator moved to bottom-left */}
         <ConnectivitySlider connection={connection} setConnection={setConnection} />
         <GeminiConcierge connection={connection} />

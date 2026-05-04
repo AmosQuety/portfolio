@@ -23,7 +23,7 @@ const About = () => {
             <div className="w-full max-w-sm mx-auto md:max-w-none aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50">
               <img
                 src={profileImageUrl}
-                alt="Nabasa Amos"
+                alt="Nabasa Amos(Amos Quety)"
                 className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"
               />
             </div>
@@ -31,17 +31,16 @@ const About = () => {
 
           {/* Text Content */}
           <div className="w-full md:w-3/5 lg:w-2/3">
-            <div className={`space-y-6 text-base sm:text-lg text-gray-200 leading-relaxed p-6 sm:p-8 rounded-3xl transition-all duration-500 ${
-              isResilientMode ? 'bg-slate-950 border-white/5' : 'bg-slate-800/30 backdrop-blur-md border border-slate-700/50 shadow-2xl'
-            }`}>
-              
+            <div className={`space-y-6 text-base sm:text-lg text-gray-200 leading-relaxed p-6 sm:p-8 rounded-3xl transition-all duration-500 ${isResilientMode ? 'bg-slate-950 border-white/5' : 'bg-slate-800/30 backdrop-blur-md border border-slate-700/50 shadow-2xl'
+              }`}>
+
               <p className="text-xl sm:text-2xl font-light">
                 Hi, I'm <span className="text-cyan-400 font-bold">Amos</span>. I build software that helps people get things done, especially when the situation is difficult.
               </p>
 
               <p>
-                {isEngineerMode 
-                  ? "My focus is on making sure apps don't break when the internet is slow or the hardware is old. I like the challenge of building for the real world, not just for high-end offices." 
+                {isEngineerMode
+                  ? "My focus is on making sure apps don't break when the internet is slow or the hardware is old. I like the challenge of building for the real world, not just for high-end offices."
                   : "I don't just care about the code; I care about the people using it. I've seen how a simple tool—like a WhatsApp bot or a basic soil sensor—can change a person's day or even their life."}
               </p>
 
@@ -54,9 +53,9 @@ const About = () => {
               {isExpanded ? (
                 <div className="space-y-6 pt-4 animate-fadeIn">
                   <p>
-                    Take my final year project: a Recommendation System for farmers. The hardest part wasn't the AI—it was the fact that sensors in the field lose connection all the time. I built it to handle that mess, so farmers could still get advice even when the internet flickered. 
+                    Take my final year project: a Recommendation System for farmers. The hardest part wasn't the AI—it was the fact that sensors in the field lose connection all the time. I built it to handle that mess, so farmers could still get advice even when the internet flickered.
                   </p>
-                  
+
                   <div className="p-4 bg-cyan-500/5 border-l-4 border-cyan-500 rounded-r-xl">
                     <p className="text-sm">
                       <span className="font-bold text-cyan-400">The Popcorn Lesson:</span> Before I was a developer, I ran a popcorn business. When it got too busy, I didn't buy fancy software. I just built a simple WhatsApp reservation system. It cut my lost sales by 40% and made my customers feel like VIPs. It taught me that <span className="text-white">simple, smart solutions create the most value.</span>

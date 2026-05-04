@@ -5,7 +5,7 @@ import type { FinalResponse, FinishReason } from '../../core/entities/FinalRespo
 import type { StreamResponse } from '../../core/entities/StreamResponse.js';
 import type { ProviderCapabilities } from '../../core/entities/ProviderCapabilities.js';
 import { createTokenUsage } from '../../core/entities/TokenUsage.js';
-import { discoverBestModel } from './GeminiModelSelector.js';
+import { discoverBestModel, nextBestModel } from './GeminiModelSelector.js';
 
 export interface GeminiProviderConfig {
   /** Optional unique identifier for this provider instance. @default 'gemini' */
