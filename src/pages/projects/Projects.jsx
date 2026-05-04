@@ -27,9 +27,9 @@ function Projects() {
       description: "Production-grade biometric SaaS combining Computer Vision & GenAI. Features Face ID login, liveness detection, and RAG document analysis using a microservices architecture (Node.js + Python).",
       technologies: ["React", "GraphQL", "Python", "FastAPI", "Gemini API", "DeepFace", "Supabase"],
       githubLink: "https://github.com/AmosQuety/Super-AI-App",
-      liveLink: "http://prism-vision.vercel.app", 
+      liveLink: "http://prism-vision.vercel.app",
     },
-     {
+    {
       title: "PharmaSearch",
       icon: FaCapsules,
       image: pharmaSearchImg,
@@ -38,7 +38,27 @@ function Projects() {
       githubLink: "https://github.com/AmosQuety/Drug-Site",
       liveLink: "https://drug-site-three.vercel.app",
     },
-    
+
+    {
+      title: "PyCodeCommenter",
+      icon: SiPypi,
+      image: pyCodeCommenterImg,
+      description: "Automated Google-style docstring generator for Python using AST parsing, saving developers significant documentation time.",
+      technologies: ["Python", "AST", "PyPI"],
+      githubLink: "https://github.com/AmosQuety/PyCodeCommenter",
+      liveLink: "https://pypi.org/project/pycodecommenter/",
+    },
+
+    {
+      title: "RentalTrack",
+      icon: FaMobileAlt,
+      image: rentalTrackImg,
+      description: "Offline React Native property management app for landlords to track tenants, rent payments, and automate reminders. Features SQLite database, local notifications, and comprehensive analytics.",
+      technologies: ["React Native", "TypeScript", "SQLite", "Expo", "Node.js"],
+      githubLink: "https://github.com/AmosQuety/RentalTrack",
+      liveLink: "https://drive.google.com/file/d/110kPGSJT9Gp4vVRQyHor5Qlf8PKCAlZK/view?usp=sharing",
+    },
+
     {
       title: "Serie Downloader",
       icon: FaTv,
@@ -54,19 +74,11 @@ function Projects() {
       image: refugeLinkImg,
       description: "AI-powered WhatsApp chatbot providing 24/7 refugee assistance in Mbarara, Uganda. Delivers instant access to registration info, food assistance, shelter, and emergency contacts via conversational interface.",
       technologies: ["TypeScript", "Node.js", "Express", "Twilio API", "Supabase", "PostgreSQL", "Render"],
-      githubLink: "https://github.com/AmosQuety/RefugeLink", 
-      liveLink: "https://wa.me/14155238886?text=join%20mail-iron", 
+      githubLink: "https://github.com/AmosQuety/RefugeLink",
+      liveLink: "https://wa.me/14155238886?text=join%20mail-iron",
     },
-    {
-      title: "RentalTrack",
-      icon: FaMobileAlt,
-      image: rentalTrackImg,
-      description: "Offline React Native property management app for landlords to track tenants, rent payments, and automate reminders. Features SQLite database, local notifications, and comprehensive analytics.",
-      technologies: ["React Native", "TypeScript", "SQLite", "Expo", "Node.js"],
-      githubLink: "https://github.com/AmosQuety/RentalTrack", 
-      liveLink: "https://drive.google.com/file/d/110kPGSJT9Gp4vVRQyHor5Qlf8PKCAlZK/view?usp=sharing", 
-    },
-    
+
+
     {
       title: "LugaLingo",
       icon: FaLanguage,
@@ -86,15 +98,7 @@ function Projects() {
       githubLink: "https://github.com/AmosQuety/HostelEase",
       liveLink: null,
     },
-    {
-      title: "PyCodeCommenter",
-      icon: SiPypi,
-      image: pyCodeCommenterImg,
-      description: "Automated Google-style docstring generator for Python using AST parsing, saving developers significant documentation time.",
-      technologies: ["Python", "AST", "PyPI"],
-      githubLink: "https://github.com/AmosQuety/PyCodeCommenter",
-      liveLink: "https://pypi.org/project/pycodecommenter/",
-    },
+
   ];
 
   const containerVariants = {
@@ -128,7 +132,7 @@ function Projects() {
         >
           <h3 className="text-cyan-400 font-semibold mb-2">📱 Testing Mobile Apps</h3>
           <p className="text-sm text-slate-400">
-            To test my Android apps: Click the download link, allow "Install from unknown sources" when prompted, 
+            To test my Android apps: Click the download link, allow "Install from unknown sources" when prompted,
             and tap "Install anyway" if Play Protect warns you. These are safe portfolio demo apps.
           </p>
         </motion.div>

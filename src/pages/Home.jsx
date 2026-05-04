@@ -47,7 +47,7 @@ const navItems = sections.map((section) => ({
   text: section.navText,
 }));
 
-const SITE_TITLE = "Nabasa Amos(Amos Quety)";
+const SITE_TITLE = "Nabasa Amos (Amos Quety)";
 const RESUME_FILE_NAME = "Nabasa_Amos_CV.pdf";
 const SCROLL_MARGIN_TOP_CLASS = "scroll-mt-16";
 const HEADER_HEIGHT_PADDING_CLASS = "pt-16";

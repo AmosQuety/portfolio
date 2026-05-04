@@ -98,10 +98,18 @@ const Header = ({ navItems, siteTitle }) => {
       id="site-header"
       className="fixed top-0 left-0 w-full h-16 sm:h-20 flex justify-between items-center px-6 lg:px-12 bg-slate-900/80 backdrop-blur-lg border-b border-white/10 z-[155]"
     >
-      {/* Site Title */}
-      <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-        {siteTitle}
-      </h1>
+      {/* Site Title - Profile Image */}
+      <a href="#" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+        <img
+          src="/profile5.jpg"
+          alt="Nabasa Amos"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-cyan-400 shadow-lg object-cover"
+        />
+        <div className="hidden sm:flex flex-col">
+          <span className="text-xs lg:text-sm font-bold text-cyan-400 uppercase tracking-wider">Nabasa</span>
+          <span className="text-[10px] text-gray-400">Software Engineer</span>
+        </div>
+      </a>
 
       {/* Right Side: Desktop Nav + Lens Selector */}
       <div className="flex items-center gap-8">
