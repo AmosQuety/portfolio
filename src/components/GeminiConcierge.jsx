@@ -125,11 +125,10 @@ const ChatMessage = ({ message }) => {
       className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}
     >
       <div
-        className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${
-          isUser
+        className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${isUser
             ? 'bg-cyan-700 text-white rounded-tr-none shadow-md font-semibold'
             : 'bg-slate-800 text-slate-200 rounded-tl-none border border-slate-700 shadow-lg'
-        }`}
+          }`}
       >
         {isUser ? (
           <p>{message.text}</p>
@@ -251,7 +250,7 @@ const GeminiConcierge = ({ connection = 'fast' } = {}) => {
 
     try {
       const systemPrompt = buildSystemInstruction(connection, activeLens);
-      
+
       const response = await fetch('/.netlify/functions/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -296,11 +295,10 @@ const GeminiConcierge = ({ connection = 'fast' } = {}) => {
   // ---------------------------------------------------------------------------
   return (
     <div
-      className={`fixed z-[100] transition-all duration-300 ${
-        isMaximized
+      className={`fixed z-[100] transition-all duration-300 ${isMaximized
           ? 'left-2 right-2 bottom-2 sm:left-4 sm:right-4 sm:bottom-4'
           : 'bottom-6 right-6'
-      }`}
+        }`}
       style={isMaximized ? { top: `${maximizedTopOffset}px` } : undefined}
     >
       {/* Trigger button */}
@@ -328,10 +326,9 @@ const GeminiConcierge = ({ connection = 'fast' } = {}) => {
             exit={{ y: 60, opacity: 0, scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 320, damping: 28 }}
             role="dialog"
-            aria-label="Amos's AI Concierge"
-            className={`bg-slate-900/95 backdrop-blur-md border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${
-              isMaximized ? 'w-full h-full' : 'w-80 sm:w-96 h-[520px]'
-            }`}
+            aria-label="Amos' AI Concierge"
+            className={`bg-slate-900/95 backdrop-blur-md border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${isMaximized ? 'w-full h-full' : 'w-80 sm:w-96 h-[520px]'
+              }`}
           >
             {/* ---- Header ---- */}
             <div className="bg-slate-800 px-4 py-3 border-b border-slate-700 flex items-center justify-between shrink-0">
